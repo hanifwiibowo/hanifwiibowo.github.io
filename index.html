@@ -259,7 +259,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
 .btrack{display:flex;width:max-content;animation:marq 32s linear infinite}
 .band:hover .btrack{animation-play-state:paused}
 .brow{display:flex;gap:36px;padding:14px 18px;font-family:var(--f-display);font-weight:700;font-size:clamp(18px,2.2vw,26px);white-space:nowrap}
-.brow span::after{content:"✦";margin-left:36px;color:var(--blue);font-size:.7em}
+.brow{gap:56px}
 @keyframes marq{to{transform:translateX(-50%)}}
 /* reveal */
 .rv{transform:translateY(22px);transition:transform .7s cubic-bezier(.2,.8,.2,1)}
@@ -320,6 +320,57 @@ main{overflow-x:clip}
 .totop{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:60;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;text-decoration:none;font-weight:700;font-size:20px;background:var(--royal);color:var(--bg);box-shadow:0 10px 24px -10px var(--royal);transform:translateY(90px);transition:transform .3s}
 .totop.show{transform:none}
 
+
+/* opening project stack */
+.ostackwrap{display:flex;flex-direction:column;gap:18px;align-items:center}
+.ostack{position:relative;width:100%;aspect-ratio:1/1;max-width:520px;perspective:1100px;transform:rotateY(calc(var(--tx,0)*10deg)) rotateX(calc(var(--ty,0)*-10deg));transition:transform .25s ease-out;transform-style:preserve-3d}
+.ocard{all:unset;box-sizing:border-box;position:absolute;left:8%;top:14%;width:84%;aspect-ratio:16/10;border-radius:22px;overflow:hidden;background:var(--panel);box-shadow:0 30px 60px -28px rgba(8,18,48,.55),0 0 0 1px var(--line);cursor:pointer;transition:transform .6s cubic-bezier(.2,.9,.25,1.1),opacity .5s,filter .5s;will-change:transform}
+.ocard img{width:100%;height:100%;object-fit:cover;display:block}
+.ocap{position:absolute;left:14px;bottom:14px;display:flex;flex-direction:column;gap:2px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:8px 14px;border-radius:12px;color:var(--ink);opacity:0;transform:translateY(8px);transition:opacity .3s .2s,transform .3s .2s}
+.ocap small{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--royal)}
+.ocap b{font-family:var(--f-display);font-size:17px}
+.ocard.pos0{z-index:4;transform:translate3d(0,0,60px) rotate(-2deg)}
+.ocard.pos0 .ocap{opacity:1;transform:none}
+.ocard.pos1{z-index:3;transform:translate3d(9%,-16%,0) rotate(6deg) scale(.9);filter:saturate(.8)}
+.ocard.pos2{z-index:2;transform:translate3d(-9%,30%,-40px) rotate(-8deg) scale(.82);filter:saturate(.7) brightness(.95)}
+.ocard.pos3{z-index:1;transform:translate3d(12%,38%,-80px) rotate(9deg) scale(.74);filter:saturate(.6) brightness(.9);opacity:.85}
+.ocard.pos0:hover{transform:translate3d(0,-10px,80px) rotate(0)}
+.ocard:not(.pos0):hover{filter:none}
+.ocard:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
+.odots{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center}
+.odots button:not(.ogo){all:unset;cursor:pointer;width:10px;height:10px;border-radius:99px;background:var(--line);transition:width .3s,background .3s}
+.odots button[aria-pressed="true"]{width:28px;background:var(--royal)}
+.odots button:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.ogo{all:unset;cursor:pointer;margin-left:10px;font-weight:600;font-size:14px;color:var(--royal);text-decoration:underline;text-underline-offset:4px}
+@media (max-width:860px){.ostack{max-width:440px;aspect-ratio:5/4}}
+/* background */
+.bgfx{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.bgfx .dots{position:absolute;inset:-40px;background-image:radial-gradient(color-mix(in srgb,var(--royal) 22%,transparent) 1.2px,transparent 1.4px);background-size:26px 26px;transform:translateY(var(--sy,0));-webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000 30%,transparent 85%);mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000 30%,transparent 85%)}
+.bgfx .blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.35;animation:drift 22s ease-in-out infinite alternate}
+.bgfx .b1{width:520px;height:520px;background:var(--blue);left:-140px;top:-120px}
+.bgfx .b2{width:460px;height:460px;background:var(--cyan);right:-160px;top:30vh;animation-duration:28s;opacity:.25}
+.bgfx .b3{width:380px;height:380px;background:var(--royal);left:30vw;bottom:-180px;animation-duration:34s;opacity:.22}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,40px) scale(1.08)}100%{transform:translate(-40px,80px) scale(.95)}}
+.bgfx .spot{position:absolute;inset:0;background:radial-gradient(420px circle at var(--mx,50%) var(--my,30%),color-mix(in srgb,var(--blue) 14%,transparent),transparent 70%)}
+:root[data-theme="dark"] .bgfx .blob{opacity:.22}
+section,header.open{position:relative}
+
+/* hero tool bubbles */
+header.open{overflow:hidden;min-height:min(88vh,860px);display:flex;align-items:center}
+header.open>.wrap{position:relative;z-index:2;width:100%;pointer-events:none}
+header.open>.wrap a,header.open>.wrap button,header.open>.wrap .ostack{pointer-events:auto}
+.bubbles{position:absolute;inset:0;z-index:0}
+.bub{position:absolute;left:0;top:0;border-radius:50%;background:#FFFFFF;display:grid;place-items:center;box-shadow:0 10px 24px -12px rgba(13,29,74,.45),0 0 0 1px var(--line);cursor:grab;touch-action:none;user-select:none;will-change:transform;transition:box-shadow .2s}
+.bub:active{cursor:grabbing;box-shadow:0 18px 36px -12px rgba(13,29,74,.6),0 0 0 3px var(--blue)}
+.bub:hover{box-shadow:0 14px 30px -12px rgba(13,29,74,.55),0 0 0 2px var(--blue)}
+.bub:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.bub img{width:58%;height:58%;object-fit:contain;pointer-events:none;-webkit-user-drag:none}
+.bub .tname{font-size:10px}
+header.open::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,color-mix(in srgb,var(--bg) 82%,transparent) 0%,color-mix(in srgb,var(--bg) 40%,transparent) 48%,transparent 70%)}
+.hint{position:absolute;z-index:2;left:50%;bottom:20px;transform:translateX(-50%);margin:0;padding:8px 16px;border-radius:999px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line);font-size:13.5px;color:var(--muted);white-space:nowrap;pointer-events:none;max-width:calc(100% - 32px);overflow:hidden;text-overflow:ellipsis}
+.hint span{color:var(--royal)}
+.cta .btn{transition:transform .2s ease-out,background .15s}
+@media (max-width:860px){header.open{min-height:0;padding-bottom:40px}header.open::after{background:color-mix(in srgb,var(--bg) 55%,transparent)}.hint{white-space:normal;text-align:center;border-radius:14px;font-size:12.5px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 .modal .mvis{position:relative;background:var(--sky);min-height:100%;display:flex;flex-direction:column}
@@ -1032,7 +1083,7 @@ const SKILLS=[
 ];
 const ROLES=[
  {now:true,when:['Sep 2026 –','Present'],t:'Teaching Assistant, Data Exploration and Visualization',o:'Department of Business Statistics, ITS',b:['Guide 40 students in exploring and visualizing data with Excel and Power BI','Support lab sessions and evaluate assignments']},
- {when:['Feb 2026 –','Jul 2026'],t:'Teaching Assistant, Web Programming',o:'Department of Business Statistics, ITS',b:['Guided students building web applications with HTML, CSS, JavaScript and PHP, and evaluated lab assignments']},
+ {when:['Feb 2026 –','Jul 2026'],t:'Teaching Assistant, Web Programming',o:'Department of Business Statistics, ITS',b:['Guided 35+ students building web applications with HTML, CSS, JavaScript and PHP, and evaluated lab assignments']},
  {when:['Sep 2025 –','Dec 2025'],t:'Teaching Assistant, Database Management',o:'Department of Business Statistics, ITS',b:['Taught SQL querying (joins, aggregation, subqueries) and relational database design in weekly labs','Guided 35+ students through PostgreSQL and DBeaver','Gave feedback on query logic and schema design']},
  {when:['Jan 2025 –','Dec 2025'],t:'Head of Branding and Marketing Division',o:'BEM Faculty of Vocational Studies, ITS',b:['Led the division and a creative team producing faculty-level branding and digital content','Planned and executed social media content to grow student engagement','Coordinated cross-divisional campaigns for a consistent brand identity']},
  {when:['May 2024 –','Nov 2024'],t:'Creative Design Subdivision Staff',o:'ITS EXPO',b:['Designed social media content, posters and digital publications','Kept visual branding consistent with the marketing and event teams']},
@@ -1127,6 +1178,44 @@ function Nav({theme,toggle}){
 }
 
 /* ---------- opening ---------- */
+function ToolBubbles(){
+  const box=useRef(null),els=useRef([]);
+  useEffect(()=>{
+    const host=box.current.parentElement;const still=reduce();
+    let W=0,H=0;const B=TOOLS.map((t,k)=>({t,x:0,y:0,vx:0,vy:0,r:34,drag:false,el:els.current[k]}));
+    const place=()=>{const r=host.getBoundingClientRect();W=r.width;H=r.height;const R=W<700?26:34;B.forEach((b,k)=>{b.r=R;if(!b.x){b.x=W*(.45+.5*Math.random());b.y=H*(.12+.76*Math.random())}b.x=Math.min(W-R,Math.max(R,b.x));b.y=Math.min(H-R,Math.max(R,b.y));b.el.style.width=b.el.style.height=2*R+'px'});render()};
+    const render=()=>{for(const b of B)b.el.style.transform='translate('+(b.x-b.r)+'px,'+(b.y-b.r)+'px)'};
+    const m={x:-999,y:-999};let grab=null,last=null,moved=0;
+    const pos=e=>{const r=host.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top]};
+    const hm=e=>{[m.x,m.y]=pos(e);if(grab){const [x,y]=[m.x,m.y];grab.vx=(x-grab.x);grab.vy=(y-grab.y);moved+=Math.abs(grab.vx)+Math.abs(grab.vy);grab.x=x;grab.y=y;if(still)render()}};
+    const hl=()=>{m.x=m.y=-999};
+    const down=k=>e=>{e.preventDefault();grab=B[k];grab.drag=true;moved=0;try{e.currentTarget.setPointerCapture(e.pointerId)}catch(_){}};
+    const up=k=>e=>{if(grab){grab.drag=false;if(moved<6){dispatchEvent(new CustomEvent('pick-tool',{detail:grab.t.id}))}grab=null}};
+    const hs=B.map((b,k)=>{const d=down(k),u=up(k);b.el.addEventListener('pointerdown',d);b.el.addEventListener('pointerup',u);b.el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();dispatchEvent(new CustomEvent('pick-tool',{detail:b.t.id}))}});return [d,u]});
+    host.addEventListener('pointermove',hm);host.addEventListener('pointerleave',hl);
+    const step=()=>{for(const b of B){if(b.drag)continue;
+        b.vx+=(Math.random()-.5)*.06;b.vy+=(Math.random()-.5)*.06;
+        const dx=b.x-m.x,dy=b.y-m.y,d=Math.hypot(dx,dy),R=120;if(d<R&&d>1){const f=(R-d)/R*.9;b.vx+=dx/d*f;b.vy+=dy/d*f}
+        b.vx*=.985;b.vy*=.985;const sp=Math.hypot(b.vx,b.vy);if(sp>14){b.vx*=14/sp;b.vy*=14/sp}
+        b.x+=b.vx;b.y+=b.vy;
+        if(b.x<b.r){b.x=b.r;b.vx=Math.abs(b.vx)*.8}if(b.x>W-b.r){b.x=W-b.r;b.vx=-Math.abs(b.vx)*.8}
+        if(b.y<b.r){b.y=b.r;b.vy=Math.abs(b.vy)*.8}if(b.y>H-b.r){b.y=H-b.r;b.vy=-Math.abs(b.vy)*.8}}
+      for(let i=0;i<B.length;i++)for(let j=i+1;j<B.length;j++){const a=B[i],c=B[j],dx=c.x-a.x,dy=c.y-a.y,d=Math.hypot(dx,dy),min=a.r+c.r;
+        if(d<min&&d>0){const nx=dx/d,ny=dy/d,o=(min-d)/2;if(!a.drag){a.x-=nx*o;a.y-=ny*o}if(!c.drag){c.x+=nx*o;c.y+=ny*o}
+          const rv=(c.vx-a.vx)*nx+(c.vy-a.vy)*ny;if(rv<0){const imp=-rv*.9;if(!a.drag){a.vx-=nx*imp;a.vy-=ny*imp}if(!c.drag){c.vx+=nx*imp;c.vy+=ny*imp}}}}
+      render()};
+    let vis=true,raf=0;const loop=()=>{raf=0;if(!vis)return;step();raf=requestAnimationFrame(loop)};
+    const io=new IntersectionObserver(([e])=>{vis=e.isIntersecting;if(vis&&!raf&&!still)loop()});io.observe(host);
+    const ro=new ResizeObserver(place);ro.observe(host);place();if(!still)loop();
+    return ()=>{cancelAnimationFrame(raf);io.disconnect();ro.disconnect();host.removeEventListener('pointermove',hm);host.removeEventListener('pointerleave',hl);B.forEach((b,k)=>{b.el.removeEventListener('pointerdown',hs[k][0]);b.el.removeEventListener('pointerup',hs[k][1])})};
+  },[]);
+  return html`<div class="bubbles" ref=${box}>
+    ${TOOLS.map((t,k)=>html`<div key=${t.id} class="bub" ref=${el=>els.current[k]=el} role="button" tabIndex="0" aria-label=${'Show projects using '+t.name} title=${t.name}><${ToolMark} t=${t}/></div>`)}
+  </div>`;
+}
+function magnet(e){if(reduce())return;const b=e.currentTarget,r=b.getBoundingClientRect();b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.18)+'px,'+((e.clientY-r.top-r.height/2)*.25)+'px)'}
+function unmagnet(e){e.currentTarget.style.transform=''}
+
 function Opening(){
   const [i,setI]=useState(0);
   const [hold,setHold]=useState(false);
@@ -1135,36 +1224,32 @@ function Opening(){
     const id=setInterval(()=>setI(x=>(x+1)%ROTATE.length),2400);
     return ()=>clearInterval(id);
   },[hold]);
-  const bars=[[60,250,90],[124,200,140],[188,160,180],[252,180,160],[316,110,230]];
-  const pts=[[82,220],[146,170],[210,130],[274,150],[338,80]];
+  const STACK=['KopiCast','Bersama AKU','Kikai Headphone','OLFACTION 2024'].map(t=>PROJECTS.find(p=>p.title===t));
+  const [f,setF]=useState(0);
+  useEffect(()=>{if(hold||reduce())return;const id=setInterval(()=>setF(x=>(x+1)%STACK.length),3200);return ()=>clearInterval(id)},[hold]);
   const [tilt,setTilt]=useState({x:0,y:0});
   const move=e=>{if(reduce())return;const r=e.currentTarget.getBoundingClientRect();setTilt({x:((e.clientX-r.left)/r.width-.5),y:((e.clientY-r.top)/r.height-.5)})};
-  return html`<header class="open" id="top"><div class="wrap ogrid">
+  const openCase=t=>{dispatchEvent(new CustomEvent('open-case',{detail:t}))};
+  return html`<header class="open" id="top"><${ToolBubbles}/><div class="wrap ogrid">
     <div>
-            <h1 class="oword">Portfolio</h1>
+      <h1 class="oword">Portfolio</h1>
       <p class="oname">Hanif Wibowo</p>
       <p class="osub">Passionate about <span class="rot" aria-live="polite"><span key=${i} class="rotw">${ROTATE[i]}</span></span></p>
       <p class="otag">I turn raw data into <strong>clear decisions</strong>, then design the products and interfaces that put them to work.</p>
       <div class="cta">
-        <a class="btn solid" href="#projects">View projects</a>
-        <a class="btn ghost" href="https://www.linkedin.com/in/hanifwiibowo" target="_blank" rel="noopener">LinkedIn ↗</a>
-        <a class="btn ghost" href="files/Hanif_Wibowo_Resume.pdf" download="Hanif_Wibowo_Resume.pdf">Download resume ↓</a>
+        <a class="btn solid" href="#projects" onPointerMove=${magnet} onPointerLeave=${unmagnet}>View projects</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/hanifwiibowo" target="_blank" rel="noopener" onPointerMove=${magnet} onPointerLeave=${unmagnet}>LinkedIn ↗</a>
+        <a class="btn ghost" href="files/Hanif_Wibowo_Resume.pdf" download="Hanif_Wibowo_Resume.pdf" onPointerMove=${magnet} onPointerLeave=${unmagnet}>Download resume ↓</a>
       </div>
     </div>
-    <div class="oart" onPointerMove=${move} onPointerLeave=${()=>{setTilt({x:0,y:0});setHold(false)}}
-      style=${{transform:'perspective(900px) rotateY('+(tilt.x*8)+'deg) rotateX('+(-tilt.y*8)+'deg)'}}>
-      <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet" style=${{color:'var(--navy)'}} role="group" aria-label="Five areas of interest as a chart. Hover a bar to read it.">
-        <g stroke="currentColor" stroke-opacity=".12"><line x1="40" y1="110" x2="360" y2="110"/><line x1="40" y1="190" x2="360" y2="190"/><line x1="40" y1="270" x2="360" y2="270"/><line x1="40" y1="340" x2="360" y2="340"/></g>
-        ${bars.map(([x,y,h],k)=>html`<rect key=${k} class=${'grow bar'+(k===i?' hot':'')} x=${x} y=${y} width="44" height=${h} rx="10" tabIndex="0"
-          style=${{animationDelay:(k*.1)+'s'}} onPointerEnter=${()=>{setI(k);setHold(true)}} onFocus=${()=>{setI(k);setHold(true)}} onBlur=${()=>setHold(false)}>
-          <title>${ROTATE[k]}</title></rect>`)}
-        <path d="M82 220 L146 170 L210 130 L274 150 L338 80" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" class="trend"/>
-        <g stroke="currentColor" stroke-width="4">${pts.map(([cx,cy],k)=>html`<circle key=${k} cx=${cx} cy=${cy} r=${k===i?11:8} style=${{fill:k===i?'var(--cyan)':'var(--bg)',transition:'r .2s'}}/>`)}</g>
-        <g transform=${'translate('+Math.min(Math.max(pts[i][0]-95,30),180)+' '+(pts[i][1]-68)+')'} class="pill">
-          <rect width="190" height="40" rx="20" fill="currentColor"/>
-          <text x="95" y="26" text-anchor="middle" style=${{fill:'var(--on-dark)'}} font-family="JetBrains Mono, monospace" font-size="14">${ROTATE[i]}</text>
-        </g>
-      </svg>
+    <div class="ostackwrap">
+      <div class="ostack" onPointerMove=${move} onPointerEnter=${()=>setHold(true)} onPointerLeave=${()=>{setTilt({x:0,y:0});setHold(false)}}
+        style=${{'--tx':tilt.x,'--ty':tilt.y}} role="group" aria-label="Featured projects">
+        ${STACK.map((p,k)=>{const pos=(k-f+STACK.length)%STACK.length;return html`<button key=${p.title} type="button" class=${'ocard pos'+pos} onClick=${()=>pos===0?openCase(p.title):setF(k)} onFocus=${()=>{setF(k);setHold(true)}} onBlur=${()=>setHold(false)} aria-label=${(pos===0?'Open case: ':'Show ')+p.title}>
+          <img src=${p.img} alt="" loading="eager" /><span class="ocap"><small>${p.kind.split(' · ')[0]}</small><b>${p.title}</b></span></button>`})}
+      </div>
+      <div class="odots" role="group" aria-label="Choose featured project">${STACK.map((p,k)=>html`<button key=${p.title} type="button" aria-label=${p.title} aria-pressed=${k===f?'true':'false'} onClick=${()=>setF(k)}></button>`)}
+        <button type="button" class="ogo" onClick=${()=>openCase(STACK[f].title)}>Open ${STACK[f].title} →</button></div>
     </div>
   </div></header>`;
 }
@@ -1293,6 +1378,7 @@ function Projects({tool,setTool,cat,setCat}){
   const cats=[['all','All'],['data','Data, ML & BI'],['web','Web apps'],['design','UI/UX & brand']];
   const list=useMemo(()=>PROJECTS.filter(p=>(cat==='all'||p.cat===cat)&&(!tool||p.tools.includes(tool))),[cat,tool]);
   const [open,setOpen]=useState(-1);
+  useEffect(()=>{const h=e=>{setTool(null);setCat('all');setOpen(PROJECTS.findIndex(p=>p.title===e.detail))};addEventListener('open-case',h);return ()=>removeEventListener('open-case',h)},[]);
   const toolName=tool&&TOOLS.find(t=>t.id===tool).name;
   const toolTag={python:'Python',powerbi:'Power BI',excel:'Excel',figma:'Figma',photoshop:'Photoshop',tableau:'Tableau',spss:'SPSS',minitab:'Minitab',html:'HTML',css:'CSS',javascript:'JavaScript'}[tool];
   return html`<section id="projects"><div class="wrap">
@@ -1391,6 +1477,18 @@ function ToTop(){
   return html`<a class=${'totop'+(show?' show':'')} href="#top" aria-label="Back to top">↑</a>`;
 }
 
+function Backdrop(){
+  const ref=useRef(null);
+  useEffect(()=>{
+    if(reduce())return;let raf=0,x=innerWidth/2,y=innerHeight/3;
+    const on=e=>{x=e.clientX;y=e.clientY;if(!raf)raf=requestAnimationFrame(()=>{raf=0;const el=ref.current;if(el){el.style.setProperty('--mx',x+'px');el.style.setProperty('--my',y+'px')}})};
+    const sc=()=>{const el=ref.current;if(el)el.style.setProperty('--sy',(scrollY*-.08)+'px')};
+    addEventListener('pointermove',on,{passive:true});addEventListener('scroll',sc,{passive:true});
+    return ()=>{removeEventListener('pointermove',on);removeEventListener('scroll',sc)};
+  },[]);
+  return html`<div class="bgfx" ref=${ref} aria-hidden="true"><div class="dots"></div><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="spot"></div></div>`;
+}
+
 function App(){
   const root=document.documentElement;
   const sys=()=>window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
@@ -1400,7 +1498,9 @@ function App(){
   const [cat,setCat]=useState('all');
   const goProjects=()=>{const el=document.getElementById('projects');if(el)el.scrollIntoView({behavior:reduce()?'auto':'smooth'})};
   const pick=c=>{setTool(null);setCat(c);goProjects()};
+  useEffect(()=>{const h=e=>{setCat('all');setTool(e.detail);goProjects()};addEventListener('pick-tool',h);return ()=>removeEventListener('pick-tool',h)},[]);
   return html`<${React.Fragment}>
+    <${Backdrop}/>
     <${Progress}/>
     <${Nav} theme=${theme} toggle=${()=>setTheme(theme==='dark'?'light':'dark')}/>
     <main>
